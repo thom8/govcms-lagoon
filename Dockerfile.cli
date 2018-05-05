@@ -1,0 +1,3 @@
+FROM 8thom/govcms-cli
+
+COPY themes/ /app/themes/custom

@@ -1,0 +1,25 @@
+docker-compose-yaml: docker-compose.yml
+
+tasks:
+  post-rollout:
+    - run:
+        name: env variables
+        command: env
+        service: cli
+    - run:
+        name: IF no Drupal installed drush si with no email sending
+        command: |
+            if [[ $(drush core-status bootstrap --pipe) == "" ]]; then
+                # no drupal installed, we install drupal from scratch
+                drush si govcms -y --account-name=admin --account-pass=admin install_configure_form.update_status_module='array(FALSE,FALSE)'
+            fi
+        service: cli
+        shell: bash
+
+environments:
+  master:
+    cronjobs:
+      - name: drush cron
+        schedule: "*/15 * * * *"
+        command: drush cron
+        service: cli
