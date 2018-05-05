@@ -1,5 +1,9 @@
 docker-compose-yaml: docker-compose.yml
 
+project: govcms-lagoon
+endpoint: ssh.lagoon.amazeeio.cloud:31758
+api: api.lagoon.amazeeio.cloud:80
+
 tasks:
   post-rollout:
     - run:
