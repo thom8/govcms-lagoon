@@ -1,3 +1,6 @@
 FROM 8thom/govcms-cli
 
-COPY themes/ /app/themes/custom
+COPY extensions.yml /app/extensions.yml
+RUN /extensions.sh
+
+COPY themes/ /app/sites/all/themes/custom
